@@ -45,12 +45,14 @@ class TypeDeclaration()
       use outside the body of the declaration, but this is
       not really correct!"
     shared default
-    Type type
-        =>  createType {
-                declaration = this;
-                qualifyingType = memberContainerType;
-                typeArguments = typeParametersAsArguments;
-            };
+    Type type {
+        // avoid => to workaround https://github.com/ceylon/ceylon/issues/6221
+        return createType {
+            declaration = this;
+            qualifyingType = memberContainerType;
+            typeArguments = typeParametersAsArguments;
+        };
+    }
 
     shared
     Type appliedType(
